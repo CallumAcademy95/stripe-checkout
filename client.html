@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stripe Checkout Test</title>
+  </head>
+  <body>
+    <button id="checkout">Pay Now</button>
+
+    <script>
+      document.getElementById("checkout").addEventListener("click", async () => {
+        const res = await fetch("http://localhost:4242/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await res.json();
+        window.location.href = data.url; // Redirect to Stripe Checkout
+      });
+    </script>
+  </body>
+</html>
