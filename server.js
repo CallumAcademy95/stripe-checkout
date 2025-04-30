@@ -10,6 +10,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// ✅ Root route to prevent "Cannot GET /" error
+app.get('/', (req, res) => {
+  res.send('Welcome to the Stripe Checkout App!');
+});
+
 app.post('/create-checkout-session', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
