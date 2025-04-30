@@ -1,18 +1,21 @@
 const express = require('express');
 const cors = require('cors');
 const Stripe = require('stripe');
+const path = require('path');
 const app = express();
 
-// ✅ Stripe initialized correctly with environment variable
+// Initialize Stripe with your secret key from environment variables
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
 
-// ✅ Root route to prevent "Cannot GET /" error
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve 'client.html' at the root path
 app.get('/', (req, res) => {
-  res.send('Welcome to the Stripe Checkout App!');
+  res.sendFile(path.join(__dirname, 'public', 'client.html'));
 });
 
 app.post('/create-checkout-session', async (req, res) => {
