@@ -1,7 +1,9 @@
 const express = require('express');
-const Stripe = require('stripe');
 const cors = require('cors');
+const Stripe = require('stripe');
 const app = express();
+
+// ✅ Stripe initialized correctly with environment variable
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
 app.use(cors());
@@ -19,7 +21,7 @@ app.post('/create-checkout-session', async (req, res) => {
           quantity: 1,
         },
         {
-          price: 'price_1QgYOoRWXauqiT6MXpHVdpZm', // Monthly recurring
+          price: 'price_1QgYOoRWXauqiT6MXpHVdpZm', // Monthly
           quantity: 1,
         },
       ],
