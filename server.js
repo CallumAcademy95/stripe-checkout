@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const Stripe = require('stripe');
-const path = require('path');
 const app = express();
 
 // Initialize Stripe with your secret key from environment variables
