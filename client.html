@@ -6,16 +6,16 @@
   <body>
     <button id="checkout">Pay Now</button>
 
-    <script>
-      document.getElementById("checkout").addEventListener("click", async () => {
-        const res = await fetch("https://stripe-checkout-1j4i.onrender.com/create-checkout-session", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        });
+    script>
+  document.getElementById("checkout").addEventListener("click", async () => {
+    const res = await fetch("/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
 
-        const data = await res.json();
-        window.location.href = data.url; // Redirect to Stripe Checkout
-      });
-    </script>
+    const data = await res.json();
+    window.location.href = data.url;
+  });
+</script>
   </body>
 </html>
