@@ -10,14 +10,15 @@ const stripe = Stripe(process.env.STRIPE_SECRET);
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the 'public' directory
+const path = require('path');
+
+// Serve static files from 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve 'client.html' at the root path
+// Serve client.html at root
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'client.html'));
 });
-
 app.post('/create-checkout-session', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
