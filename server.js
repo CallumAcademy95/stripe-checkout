@@ -3,7 +3,7 @@ const Stripe = require('stripe');
 const app = express();
 
 // ✅ Your live secret key
-const stripe = Stripe('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');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 app.use(express.json());
 

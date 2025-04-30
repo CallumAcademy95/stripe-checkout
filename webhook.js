@@ -3,10 +3,10 @@ const Stripe = require('stripe');
 const app = express();
 
 // ✅ Your live secret key
-const stripe = Stripe('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');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 // ⛔ Replace with your actual live webhook secret from Stripe dashboard
-const endpointSecret = 'whsec_YOUR_LIVE_WEBHOOK_SECRET';
+const endpointSecret = process.env.WEBHOOK_SECRET;
 
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   let event;
