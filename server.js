@@ -7,8 +7,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET);
 // ✅ Enable CORS and serve static files
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname)); // <-- This serves client.html
-
+app.use(express.static(__dirname));
 app.post('/create-checkout-session', async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
