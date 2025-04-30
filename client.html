@@ -8,7 +8,7 @@
 
     <script>
       document.getElementById("checkout").addEventListener("click", async () => {
-        const res = await fetch("http://localhost:4242/create-checkout-session", {
+        const res = await fetch("https://stripe-checkout-1j4i.onrender.com/create-checkout-session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         });

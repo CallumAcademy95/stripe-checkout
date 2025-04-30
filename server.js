@@ -1,10 +1,10 @@
 const express = require('express');
 const Stripe = require('stripe');
+const cors = require('cors');
 const app = express();
+const stripe = Stripe(process.env.STRIPE_SECRET);
 
-// ✅ Your live secret key
-const stripe = require('stripe')(process.env.STRIPE_SECRET);
-
+app.use(cors());
 app.use(express.json());
 
 app.post('/create-checkout-session', async (req, res) => {
