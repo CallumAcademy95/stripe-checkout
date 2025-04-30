@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Stripe Checkout Test</title>
-  </head>
-  <body>
-    <button id="checkout">Pay Now</button>
-
-    script>
+<script>
   document.getElementById("checkout").addEventListener("click", async () => {
     const res = await fetch("/create-checkout-session", {
       method: "POST",
@@ -17,5 +9,3 @@
     window.location.href = data.url;
   });
 </script>
-  </body>
-</html>
