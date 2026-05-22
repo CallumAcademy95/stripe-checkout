@@ -18,8 +18,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'client.html'));
 });
+
 app.post('/create-checkout-session', async (req, res) => {
   try {
+    // NEW: read partner_id from POST body, sanitise to a safe slug
+    const partner_id = String(req.body?.partner_id || 'direct')
+      .toLowerCase()
+      .replace(/[^a-z0-9_-]/g, '')
+      .slice(0, 64) || 'direct';
+
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
@@ -33,10 +40,14 @@ app.post('/create-checkout-session', async (req, res) => {
           quantity: 1,
         },
       ],
+      // NEW: tag the checkout session itself
+      client_reference_id: partner_id,
+      metadata: { partner_id },
       subscription_data: {
         trial_period_days: 30,
         metadata: {
           cancel_after_months: 5,
+          partner_id, // NEW: stamps every future invoice with the gym
         },
       },
       success_url: 'https://stripe-checkout-1j4i.onrender.com/success',
